@@ -1,12 +1,22 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import PokemonSearch from './pages/pokemon-search.js';
 import BerriesSearch from './pages/berries-search.js';
 
 type Props = {};
 
+const Drawer = createDrawerNavigator(
+    {
+        Pokemon: {
+            screen: PokemonSearch
+        },
+        Berries: {
+            screen: BerriesSearch
+        }
+    }
+)
 
 const RootStack = createStackNavigator(
     {
@@ -20,7 +30,7 @@ const RootStack = createStackNavigator(
 
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return <Drawer />;
   }
 }
 
