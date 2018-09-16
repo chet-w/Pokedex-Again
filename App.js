@@ -1,16 +1,19 @@
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import PokemonSearch from './pages/pokemon-search.js';
+import Pokemon from './pages/pokemon.js';
 import BerriesSearch from './pages/berries-search.js';
 
-type Props = {};
 
 const Drawer = createDrawerNavigator(
     {
         Pokemon: {
             screen: PokemonSearch
+        },
+        PokemonPage: {
+            screen: Pokemon
         },
         Berries: {
             screen: BerriesSearch
@@ -18,27 +21,21 @@ const Drawer = createDrawerNavigator(
     }
 )
 
-const RootStack = createStackNavigator(
-    {
-      Pokemon: PokemonSearch,
-      Berries: BerriesSearch
-    },
-    {
-        initialRouteName: 'Pokemon'
-    }
-);
+
+
+console.disableYellowBox = true;
 
 export default class App extends React.Component {
-  render() {
-    return <Drawer />;
-  }
+    render() {
+        return <Drawer />;
+    }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  }
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    }
 });

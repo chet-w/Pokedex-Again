@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { withNavigation } from 'react-navigation';
 import { Card, CardItem, Text, Right, Icon } from 'native-base';
 
 
 
-export default class CardListItem extends React.Component {
+class CardListItem extends React.Component {
 
     constructor(props){
         super(props);
@@ -15,13 +16,18 @@ export default class CardListItem extends React.Component {
 
     render(){
 
+        const openPokemonPage = () => {
+            this.props.navigation.navigate('PokemonPage', {
+                name: this.state.name
+            });
+        }
 
         return (
-            <Card>
+            <Card >
                 <CardItem>
                     <Text>{this.state.name}</Text>
                     <Right>
-                        <Icon onPress={this.props.click} name="arrow-forward" />
+                        <Icon onPress={openPokemonPage} name="arrow-forward" />
                     </Right>
                 </CardItem>
              </Card>
@@ -29,3 +35,5 @@ export default class CardListItem extends React.Component {
     }
 
 }
+
+export default withNavigation(CardListItem);

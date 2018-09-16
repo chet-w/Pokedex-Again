@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { Container, Content, Button, Text, H1, Form, Item, Label, Input, H2 } from 'native-base';
@@ -9,7 +9,7 @@ import * as pkmnList from 'pokemon';
 
 export default class PokemonSearch extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             preamble: "Type the name of a Pokemon below to bring up it's Pokedex entry.",
@@ -22,33 +22,26 @@ export default class PokemonSearch extends React.Component {
         headerTitle: 'Pokemon',
     };
 
-    render(){
-
-        const openPokemonPage = (name) => {
-                    this.props.navigation.toggleDrawer();
-        }
+    render() {
 
         const suggestions = this.state.suggested.map(el => {
             return (
-                <CardListItem click={openPokemonPage} name={el} key={el}/>
+                <CardListItem name={el} key={el} />
             )
         });
-
-
 
         const handleInput = (text) => {
             const all = pkmnList.all();
 
-            if(text === ""){
-
+            if (text === "") {
                 this.setState({
-                   suggested: pkmnList.all().slice(0,10)
+                    suggested: pkmnList.all().slice(0, 10)
                 });
-            }else{
+            } else {
                 let filtered = all.filter(name => {
                     return (name.toLowerCase().indexOf(text.toLowerCase()) > -1);
                 });
-                if(filtered.length > 10){
+                if (filtered.length > 10) {
                     filtered = filtered.slice(0, 10);
                 }
                 this.setState({
@@ -57,33 +50,33 @@ export default class PokemonSearch extends React.Component {
             }
         }
 
-        return(
-             <Container>
-                 <PageHeader title="Pokemon" navigation={this.props.navigation}/>
-                 <Content padder>
+        return (
+            <Container>
+                <PageHeader title="Pokemon" navigation={this.props.navigation} />
+                <Content padder>
                     <H1>Browse Pokemon</H1>
                     <Text>
                         {this.state.preamble}
                     </Text>
                     <Form>
                         <Item floatingLabel>
-                          <Label>Pokemon Name</Label>
-                          <Input onChangeText={(text) => handleInput(text)}/>
+                            <Label>Pokemon Name</Label>
+                            <Input onChangeText={(text) => handleInput(text)} />
                         </Item>
                     </Form>
 
                     <Container padder>
                         {suggestions}
                     </Container>
-                 </Content>
-             </Container>
+                </Content>
+            </Container>
         );
     }
 }
 
 const styles = StyleSheet.create({
-  input: {
-    marginBottom: '20'
-  }
+    input: {
+        marginBottom: '20'
+    }
 });
 
