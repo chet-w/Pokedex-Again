@@ -4,7 +4,7 @@ import { withNavigation } from 'react-navigation';
 import { Content, List, ListItem, View, Container } from 'native-base';
 // import * as request from 'request';
 // import * as cheerio from 'cheerio';
-import * as pk from 'pokemon';
+// import * as pk from 'pokemon';
 import { MaterialIndicator } from 'react-native-indicators';
 // import * as find from 'cheerio-eq';
 
@@ -27,6 +27,11 @@ class Pokemon extends Component {
             loading: true
         }
         this.getData();
+        // setTimeout(() => {
+        //     this.setState({
+        //         loading: false
+        //     })
+        // }, 3000);
         
     }
 
@@ -36,21 +41,19 @@ class Pokemon extends Component {
 
     getData() {
         const id = pk.getId(this.state.name);
-        this.setState({
-            sprite: id
-        })
-        // request('https://www.serebii.net/pokedex-bw/' + id + '.shtml', (error, response, html) => {
-        //     if(!error && response.statusCode == 200){
-        //         const $ = cheerio.load(html);
-        //         const prefix = "https://www.serebii.net";
+        
+        request('https://www.serebii.net/pokedex-bw/' + id + '.shtml', (error, response, html) => {
+            if(!error && response.statusCode == 200){
+                const $ = cheerio.load(html);
+                const prefix = "https://www.serebii.net";
 
-        //         const sprites = find($, ".dextable img:eq(0)").attr("src");
+                const sprites = find($, ".dextable img:eq(0)").attr("src");
 
-        //         this.setState({
-        //             sprite: sprites
-        //         });
-        //     }
-        // });
+                this.setState({
+                    sprite: sprites
+                });
+            }
+        });
     }
 
     render() {
